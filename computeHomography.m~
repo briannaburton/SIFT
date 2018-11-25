@@ -36,27 +36,13 @@ function H = computeHomography(Features, Matches, Model)
         
     elseif Model == "Euclidean"
         % Case 3 DOF
-        % Solve as similarity
+        % Solve a
         M = zeros(2*N,4);
         for i=1:N
             x_prime = Matches(i,1);
             y_prime = Matches(i,2);
             M((2*i)-1,:) = [x_prime -y_prime 1 0];
             M((2*i),:)= [y_prime x_prime 0 1];
-        end
-        % Least squares solution approximation
-        H = M \ Features_reform;
-        a = H(1);
-        b = H(2);
-        c = H(3);
-        d = H(4);
-        
-        % Solve for scaling factor
-        s = sqrt(a^2 + b^2);
-        a = a/s;
-        b = b/s;
-        
-        H = [a -b c; b a d; 0 0 1];
         
     elseif Model == "Similarity"
         % Case 4 DOF
