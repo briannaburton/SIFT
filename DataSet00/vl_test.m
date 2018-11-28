@@ -1,5 +1,6 @@
 addpath('/Users/briannaburton/vlfeat-0.9.21/toolbox/demo');
 
+
 Ia = imread('retina1.png') ;
 Ib = imread('retina2.png') ;
 
