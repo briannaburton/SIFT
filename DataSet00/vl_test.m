@@ -1,10 +1,14 @@
 addpath('/Users/briannaburton/vlfeat-0.9.21/toolbox/demo');
 
-Ia = imread('skin1.jpg') ;
-Ib = imread('skin2.jpg') ;
 
-[fa,da] = vl_sift(im2single(rgb2gray(Ia))) ;
-[fb,db] = vl_sift(im2single(rgb2gray(Ib))) ;
+Ia = imread('retina1.png') ;
+Ib = imread('retina2.png') ;
+
+peak_thresh = 0;
+edge_thresh = 10;
+
+[fa,da] = vl_sift(im2single(rgb2gray(Ia)), 'PeakThresh', peak_thresh) ;
+[fb,db] = vl_sift(im2single(rgb2gray(Ib)), 'PeakThresh', peak_thresh) ;
 
 [matches, scores] = vl_ubcmatch(da,db) ;
 
