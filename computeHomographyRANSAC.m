@@ -4,7 +4,8 @@ function H = computeHomographyRANSAC(Features, Matches, Model)
     % Model: string specifying a transformation model
     
     %Set threshold in pixels
-    thresh = 5;
+    % 10 without normalization
+    thresh = 0.0005;
     
     %Set stopping condition for RANSAC
     max_iterations = 5000;

@@ -12,8 +12,8 @@ addpath('/Users/briannaburton/vlfeat-0.9.21/toolbox/demo');
 % same range
 
 % Specify images to register
-Ia = imread('./DataSet00/skin1.jpg') ;
-Ib = imread('./DataSet00/skin2.jpg') ;
+Ia = imread('./DataSet00/retina1.png') ;
+Ib = imread('./DataSet00/retina2.png') ;
 
 peak_thresh = 0;
 edge_thresh = 10;
@@ -35,9 +35,21 @@ fixed = [xa; ya]';
 moving = [xb; yb]';
 
 Model = "Projective";
+Normalization = true;
 
-H = computeHomography(fixed, moving, Model);
-Hran = computeHomographyRANSAC(fixed, moving, Model);
+if Normalization == true
+    % Extend the algorithm with a normalization and a denormalization step
+    [fixed_norm, moving_norm, T_Features, T_Matches] = normalize_DLT(fixed, moving);
+    H = computeHomography(fixed_norm, moving_norm, Model);
+    Hran = computeHomographyRANSAC(fixed_norm, moving_norm, Model);
+    % Denormalization
+    H = inv(T_Features)*H*T_Matches
+    Hran = inv(T_Features)*Hran*T_Matches
+    
+elseif Normalization == false
+    H = computeHomography(fixed, moving, Model);
+    Hran = computeHomographyRANSAC(fixed, moving, Model);
+end
 
 img = Ib; % image to transform
 H_imwarp = transpose(H); %transpose for imwarp
