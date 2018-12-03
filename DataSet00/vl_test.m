@@ -1,8 +1,8 @@
 addpath('/Users/briannaburton/vlfeat-0.9.21/toolbox/demo');
 
 
-Ia = imread('retina1.png') ;
-Ib = imread('retina2.png') ;
+Ia = imread('building1.jpg') ;
+Ib = imread('building2.jpg') ;
 
 peak_thresh = 0;
 edge_thresh = 10;

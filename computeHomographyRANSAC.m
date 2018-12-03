@@ -5,11 +5,12 @@ function H = computeHomographyRANSAC(Features, Matches, Model)
     
     %Set threshold in pixels
     % 10 without normalization
+    % 0.0005 for retina/skin with normalization
     thresh = 0.0005;
     
     %Set stopping condition for RANSAC
-    max_iterations = 5000;
-    des_percent_inliers = 0.85;
+    max_iterations = 10000;
+    des_percent_inliers = 0.60;
     
     % Checks to be sure features and matches are the same
     N = length(Features);

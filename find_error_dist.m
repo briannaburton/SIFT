@@ -18,7 +18,7 @@ function sq_diff = find_error_dist(H, Features, Matches)
     
     Transformed_Features = Transformed_Features(1:2,:)';
     sq_diff2 = (Matches - Transformed_Features).^2;
-    sq_diff2 = sqrt(sum(sq_diff1, 2));
+    sq_diff2 = sqrt(sum(sq_diff2, 2));
     
     sq_diff = sq_diff1 + sq_diff2;
 end

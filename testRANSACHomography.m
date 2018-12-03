@@ -56,8 +56,9 @@ H_imwarp = transpose(H); %transpose for imwarp
 Hran_imwarp = transpose(Hran); %transpose for imwarp
 tform1 = projective2d(H_imwarp);
 tform2 = projective2d(Hran_imwarp);
-out1 = imwarp(img, tform1);
-out2 = imwarp(img, tform2);
+Rfixed = imref2d(size(Ia));
+[out1, Rregistered1] = imwarp(Ib,tform1,'FillValues', 255,'OutputView',Rfixed);
+[out2, Rregistered2] = imwarp(Ib,tform2,'FillValues', 255,'OutputView',Rfixed);
 
 subplot(2,2,1);
 imshow(Ia);
@@ -76,11 +77,8 @@ imshow(out2);
 title('Transformed Moving Image H Ransac');
 
 figure();
-h1 = imshow(Ia, 'InitialMag', 'fit');
-hold on
-h2 = imshow(out2, 'InitialMag', 'fit');
-hold off
-set(h2, 'AlphaData', 0.5); 
+C = imfuse(Ia,Rfixed, out2, Rregistered1,'blend','Scaling','joint');
+imshow(C)
 title('Overlay of RANSAC moving and fixed images');
 
 err = find_error_dist(H, fixed, moving);
