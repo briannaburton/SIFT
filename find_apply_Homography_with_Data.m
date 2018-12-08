@@ -1,14 +1,16 @@
 clear all;
 close all;
+% Finds a homography from data only with all four models and compare visually
 
 addpath('/Users/briannaburton/vlfeat-0.9.21/toolbox/demo');
-
-% Perform registration (no ransac) with all four models and compare visually
+% At the beginning of each session:
+% run /Users/briannaburton/vlfeat-0.9.21/toolbox/vl_setup
+% vl_version verbose
 
 
 data = load('./DataSet01/Features.mat');
 Ia = imread('./DataSet01/00.png');
-Ib = imread('./DataSet01/03.png');
+Ib = imread('./DataSet01/01.png');
 
 im00 = data.Features(1).xy;
 im01 = data.Features(2).xy;
@@ -16,7 +18,7 @@ im02 = data.Features(3).xy;
 im03 = data.Features(4).xy;
 
 fixed = im00;
-moving = im03;
+moving = im01;
 
 figure();
 [outproj, mean_proj, Rfixed, Rregistered] = compute_apply_H(Ia, Ib, fixed, moving, 'Projective');

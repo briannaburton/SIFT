@@ -1,13 +1,14 @@
-function H = computeHomographyRANSAC(Features, Matches, Model)
-    % Compute Homography with the RANSAC outlier rejection method
+function H = computeHomographyRANSACnorm(Features, Matches, Model)
+    % Function to compute the homography with a normalized dataset
     % Features: Nx2 matrices storing the features [x, y] FIXED
     % Matches: Nx2 matrices storing the correspondences [x', y'] MOVING
     % Model: string specifying a transformation model
     % H: 3x3 matrix homography matrix for the chosen transformation model
+ 
     
     %Set threshold in pixels
-    % 1 for retina/skin
-    thresh = 1;
+    % 0.005 for retina/skin with normalization
+    thresh = 0.005;
     
     %Set stopping condition for RANSAC
     max_iterations = 5000;
@@ -81,5 +82,5 @@ function H = computeHomographyRANSAC(Features, Matches, Model)
     Features_RANSAC = Features(best_inliers,:);
     Matches_RANSAC = Matches(best_inliers,:);
     H = computeHomography(Features_RANSAC, Matches_RANSAC, Model);
-    err_ran = mean(find_error_dist(H, Features_RANSAC, Matches_RANSAC))
+    err_ran = mean(find_error_dist(H, Features_RANSAC, Matches_RANSAC));
 end

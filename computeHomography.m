@@ -1,7 +1,9 @@
 function H = computeHomography(Features, Matches, Model)
+    % Compute the homography for the unnormalized data
     % Features: Nx2 matrices storing the features [x, y] FIXED
     % Matches: Nx2 matrices storing the correspondences [x', y'] MOVING
     % Model: string specifying a transformation model
+    % H: 3x3 matrix homography matrix for the chosen transformation model
     
     N = length(Features);
     if length(Features) ~= length(Matches)
